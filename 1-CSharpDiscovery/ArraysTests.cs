@@ -8,17 +8,18 @@ namespace CSharpDiscovery
     public class ArraysTests
     {
         //[Test]
-        //public void DeclareAOneDimensionArrayNotInitialized()
+        //public void declareaonedimensionarraynotinitialized()
         //{
         //    // use int[] as type to declare an integer array initialized to null
-        //    Check.That(integerArray).IsNull();
+        //    int [] integerarray = null;
+        //    check.that(integerarray).isnull();
         //}
 
-        //[Test]
+        ////[Test]
         //public void DeclareAOneDimensionArrayInitializedWithTwoElements()
         //{
         //    // use new int[] {}, 1 and 2 as values, and var as type
-
+        //    int[] integerArray = (1, 2);
         //    Check.That(integerArray).HasSize(2);
         //    Check.That(integerArray).ContainsExactly(1, 2);
         //}
