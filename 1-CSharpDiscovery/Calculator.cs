@@ -8,14 +8,14 @@ namespace CSharpDiscovery
 {
     using System.Runtime.InteropServices;
 
-    class Calculator
+    public class Calculator
     {
         public string name;
 
-        public Calculator(string name)
-        {
-            this.name = name;
-        }
+        //public Calculator(string name)
+        //{
+        //    this.name = name;
+        //}
 
         public double SumOfTheArray(double[] array)
         {
@@ -29,11 +29,5 @@ namespace CSharpDiscovery
             return result;
         }
 
-//        public double OnePlusTwo(string text)
-//        {
-//            double result = text.Split('+').Sum(int.Parse);
-//
-//            return result;
-//        }
     }
 }

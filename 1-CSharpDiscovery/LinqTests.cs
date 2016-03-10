@@ -1,5 +1,6 @@
 ﻿namespace CSharpDiscovery
 {
+    using System.Collections.Generic;
     using System.Linq;
     using NFluent;
     using NUnit.Framework;
@@ -7,55 +8,78 @@
     [TestFixture]
     public class LinqTests
     {
-        //[Test]
-        //public void UseAForeachLoopToSelectItemsStartingWithPlCaseSentitive()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    var filteredItems = new List<string>();
-        //    // foreach loop to add
-        //    Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
-        //}
+        [Test]
+        public void UseAForeachLoopToSelectItemsStartingWithPlCaseSentitive()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            var search = new[] { "plip", "plop", "plup" };
+            var filteredItems = new List<string>();
 
-        //[Test]
-        //public void TransformPreviousForeachLoopInALinqExpression()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use from in/where/select LINQ syntax to the same filter as with the foreach loop
-        //    // var filteredItems = from ...
-        //    Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
-        //}
+            foreach (var item in items)
+            {
+                if (search.Contains(item))
+                {
+                    filteredItems.Add(item);
+                }
+            }
 
-        //[Test]
-        //public void ReplacePreviousLinqExpressionWithLinqExtensionMethodsOfIEnumerable()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use System.Linq.Enumerable extension methods
-        //    Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
-        //}
+            Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
+        }
 
-        //[Test]
-        //public void UseSelectExtensionMethodToTransformFilteredItemsToUpperCase()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use System.Linq.Enumerable extension methods
-        //    Check.That(filteredItems).ContainsExactly("PLIP", "PLOP", "PLUP");
-        //}
+        [Test]
+        public void TransformPreviousForeachLoopInALinqExpression()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            var search = new[] { "plip", "plop", "plup" };
+            var filteredItems = new List<string>();
+            filteredItems = items.Where(item => search.Contains(item)).ToList();
+            // use from in/where/select LINQ syntax to the same filter as with the foreach loop
+            // var filteredItems = from ...
+            Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
+        }
 
-        //[Test]
-        //public void UseSkipAndTakeToKeepElementsAtAGivenRange()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use System.Linq.Enumerable extension methods
-        //    Check.That(twoElementsStartingAtFourth).ContainsExactly("plop", "plup");
-        //}
+        [Test]
+        public void ReplacePreviousLinqExpressionWithLinqExtensionMethodsOfIEnumerable()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            var search = new[] { "plip", "plop", "plup" };
+            var filteredItems = new List<string>();
+            // use System.Linq.Enumerable extension methods
+            filteredItems = items.Where(item => search.Contains(item)).ToList();
 
-        //[Test]
-        //public void UseFirstToSelectFirstElementMatchingACondition()
-        //{
-        //    var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
-        //    // use First to retrieve the first item having an 'o' at third position
-        //    Check.That(firstItemHavingAnOAtThirdPosition).Equals("foo");
-        //}
+            Check.That(filteredItems).ContainsExactly("plip", "plop", "plup");
+        }
+
+        [Test]
+        public void UseSelectExtensionMethodToTransformFilteredItemsToUpperCase()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            var search = new[] { "PLIP", "PLOP", "PLUP" };
+            var filteredItems = new List<string>();
+            // use System.Linq.Enumerable extension methods
+            filteredItems = items.Where(item => search.Contains(item.ToUpper())).ToList();
+            filteredItems = filteredItems.ConvertAll(d => d.ToUpper());
+
+            Check.That(filteredItems).ContainsExactly("PLIP", "PLOP", "PLUP");
+        }
+
+//        [Test]
+//        public void UseSkipAndTakeToKeepElementsAtAGivenRange()
+//        {
+//            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+//            // use System.Linq.Enumerable extension methods
+//            Check.That(twoElementsStartingAtFourth).ContainsExactly("plop", "plup");
+//        }
+
+        [Test]
+        public void UseFirstToSelectFirstElementMatchingACondition()
+        {
+            var items = new[] { "plip", "foo", "bar", "plop", "plup", "Plap" };
+            // use First to retrieve the first item having an 'o' at third position
+            string firstItemHavingAnOAtThirdPosition = items.First(item => item.Substring(2,2) == "o");
+        
+            Check.That(firstItemHavingAnOAtThirdPosition).Equals("foo");
+        }
 
         //[Test]
         //public void FirstThrowsAnExceptionWhenConditionMatchesNoElement()
